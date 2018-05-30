@@ -56,7 +56,10 @@ def find_radius(blockers, m):
             tmp_y += inc
 
         circles.append((x, y, r))
-        print(x, y, r)
+        #print(x, y, r)
         circle_index += 1
 
     return circles
+
+def min_radius(x,y,circles,blockers):
+    pass
