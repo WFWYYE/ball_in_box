@@ -21,10 +21,9 @@ if __name__ == '__main__':
 
     area = 0
 
-
     if num_of_circle == len(circles) and val.validate(circles, blockers):
+
         area = area_sum(circles)
         print("Total area: {}".format(area))
     else:
         print("Error: no good circles.")
-
