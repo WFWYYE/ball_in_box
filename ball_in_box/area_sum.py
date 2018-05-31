@@ -32,4 +32,4 @@ if __name__ == '__main__':
     else:
         print("Error: no good circles.")
 
-    # print("Time:", time.time() - begin)
+    print("Time:", time.time() - begin)

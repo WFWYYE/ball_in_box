@@ -26,10 +26,11 @@ def find_radius(blockers, m):
     # 当前放入的圆环数量
     circle_index = 0
 
-    inc = 1e-2
+    inc = 7e-3
+    times = (int)(2 / inc)
     begin = -1 + inc
 
-    for i in range(250):
+    for i in range(times):
         test_x.append(begin)
         test_y.append(begin)
         begin += inc
@@ -49,12 +50,13 @@ def find_radius(blockers, m):
                     x = tmp_x
                     y = tmp_y
                     r = tmp_r
+
         # 第二次遍历
         tmp_x = x - inc
-        tmp_y = y - inc
         tmp_inc = inc / 20
         for i in range(20):
             tmp_x += tmp_inc
+            tmp_y = y - inc
             for j in range(20):
                 tmp_y += tmp_inc
                 tmp_r = min_radius(tmp_x, tmp_y, circles, blockers)
@@ -72,8 +74,6 @@ def find_radius(blockers, m):
 
 # 找出满足条件的最大圆的半径
 def min_radius(x, y, circles, blockers):
-    # 圆环的最大半径
-    r = 2
     if (1 - abs(x)) > (1 - abs(y)):
         r = (1 - abs(y))
     else:
