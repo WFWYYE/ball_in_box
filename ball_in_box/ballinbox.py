@@ -9,7 +9,7 @@ def ball_in_box(m=5, blockers=[(0.5, 0.5), (0.5, -0.5), (0.5, 0.3)]):
     """
     m is the number circles.
     n is the list of coordinates of tiny blocks.
-    
+
     This returns a list of tuple, composed of x,y of the circle and r of the circle.
     """
 
@@ -41,13 +41,27 @@ def find_radius(blockers, m):
         y = tmp_y
         r = inc
 
+        # 第一次遍历
         for tmp_y in test_y:
             for tmp_x in test_x:
-                max_r = min_radius(tmp_x, tmp_y, circles, blockers)
-                if r < max_r:
+                tmp_r = min_radius(tmp_x, tmp_y, circles, blockers)
+                if r < tmp_r:
                     x = tmp_x
                     y = tmp_y
-                    r = max_r
+                    r = tmp_r
+        # 第二次遍历
+        tmp_x = x - inc
+        tmp_y = y - inc
+        tmp_inc = inc / 10
+        for i in range(10):
+            tmp_x += tmp_inc
+            for j in range(10):
+                tmp_y += tmp_inc
+                tmp_r = min_radius(tmp_x, tmp_y, circles, blockers)
+                if r < tmp_r:
+                    x = tmp_x
+                    y = tmp_y
+                    r = tmp_r
 
         circles.append((x, y, r))
         # print(x, y, r)

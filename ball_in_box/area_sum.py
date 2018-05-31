@@ -3,6 +3,8 @@ import math
 import ball_in_box.ballinbox as bb
 import ball_in_box.validate as val
 
+import time
+
 
 def area_sum(circles):
     area = 0.0
@@ -17,6 +19,8 @@ if __name__ == '__main__':
     blockers = [(0.5, 0.5)
         , (0.5, -0.3)]
 
+    begin = time.time()
+
     circles = bb.ball_in_box(num_of_circle, blockers)
 
     area = 0
@@ -27,3 +31,5 @@ if __name__ == '__main__':
         print("Total area: {}".format(area))
     else:
         print("Error: no good circles.")
+
+    # print("Time:", time.time() - begin)
