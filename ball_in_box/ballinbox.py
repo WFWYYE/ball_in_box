@@ -29,7 +29,7 @@ def find_radius(blockers, m):
     inc = 1e-2
     begin = -1 + inc
 
-    for i in range(200):
+    for i in range(250):
         test_x.append(begin)
         test_y.append(begin)
         begin += inc
@@ -52,10 +52,10 @@ def find_radius(blockers, m):
         # 第二次遍历
         tmp_x = x - inc
         tmp_y = y - inc
-        tmp_inc = inc / 10
-        for i in range(10):
+        tmp_inc = inc / 20
+        for i in range(20):
             tmp_x += tmp_inc
-            for j in range(10):
+            for j in range(20):
                 tmp_y += tmp_inc
                 tmp_r = min_radius(tmp_x, tmp_y, circles, blockers)
                 if r < tmp_r:
