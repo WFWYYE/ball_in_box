@@ -20,9 +20,19 @@ def ball_in_box(m=5, blockers=[(0.5, 0.5), (0.5, -0.5), (0.5, 0.3)]):
 
 def find_radius(blockers, m):
     circles = []
+    # 每个格子的坐标
+    test_x = []
+    test_y = []
+    # 当前放入的圆环数量
     circle_index = 0
+
     inc = 1e-2
-    # 圆环的信息
+    begin = -1 + inc
+
+    for i in range(200):
+        test_x.append(begin)
+        test_y.append(begin)
+        begin += inc
 
     for i in range(m):
 
@@ -31,35 +41,40 @@ def find_radius(blockers, m):
         y = tmp_y
         r = inc
 
-        while tmp_y + r <= 1:
-            tmp_x = -1 + inc
-            while tmp_x + r <= 1:
-
-                max_radius = 1 - abs(tmp_y)
-                mid_radius = (max_radius + r) / 2
-
-                # 二分法求最大的圆环半径
-                while max_radius - r > 1e-3:
-                    if tmp_y > 0.5 and tmp_x > 0.5:
-                        a = 0
-                    circles.append((tmp_x, tmp_y, mid_radius))
-                    if validate(circles, blockers):
-                        x = tmp_x
-                        y = tmp_y
-                        r = mid_radius
-                    else:
-                        max_radius = mid_radius
-                    mid_radius = (max_radius + r) / 2
-                    circles.pop()
-
-                tmp_x += inc
-            tmp_y += inc
+        for tmp_y in test_y:
+            for tmp_x in test_x:
+                max_r = min_radius(tmp_x, tmp_y, circles, blockers)
+                if r < max_r:
+                    x = tmp_x
+                    y = tmp_y
+                    r = max_r
 
         circles.append((x, y, r))
-        #print(x, y, r)
+        # print(x, y, r)
         circle_index += 1
 
     return circles
 
-def min_radius(x,y,circles,blockers):
-    pass
+
+# 找出满足条件的最大圆的半径
+def min_radius(x, y, circles, blockers):
+    # 圆环的最大半径
+    r = 2
+    if (1 - abs(x)) > (1 - abs(y)):
+        r = (1 - abs(y))
+    else:
+        r = (1 - abs(x))
+
+    for blocker in blockers:
+        tmp = math.sqrt((blocker[0] - x) ** 2 + (blocker[1] - y) ** 2)
+
+        if (r > tmp):
+            r = tmp
+
+    for circle in circles:
+        tmp = math.sqrt((circle[0] - x) ** 2 + (circle[1] - y) ** 2) - circle[2]
+
+        if (r > tmp):
+            r = tmp
+
+    return r
